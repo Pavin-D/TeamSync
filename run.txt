@@ -1,0 +1,94 @@
+========================================================================
+             STEP-BY-STEP INSTRUCTION TO RUN TEAMSYNC / TEAMFORGE AI
+========================================================================
+
+------------------------------------------------------------------------
+PREREQUISITES
+------------------------------------------------------------------------
+1. Node.js (v18.x or higher) and npm installed on your system.
+2. PostgreSQL Database installed and running on port 5432.
+   - Default Database Name: teamsync
+   - Default Database Connection: postgresql://postgres:root@localhost:5432/teamsync?schema=public
+
+------------------------------------------------------------------------
+ENVIRONMENT SETUP (.env FILES)
+------------------------------------------------------------------------
+
+1. Root Directory Environment (.env):
+   Located at: ./ .env
+   Contents:
+     VITE_API_BASE_URL=http://localhost:5000/api
+     VITE_APP_NAME="TeamForge AI"
+     VITE_APP_ENV=development
+
+2. Backend Directory Environment (backend/.env):
+   Located at: ./backend/.env
+   Contents:
+     DATABASE_URL="postgresql://postgres:root@localhost:5432/teamsync?schema=public"
+     PORT=5000
+     JWT_SECRET="teamsync_super_secret_jwt_key_change_in_production"
+     JWT_EXPIRES_IN="7d"
+     FRONTEND_URL="http://localhost:3000"
+
+------------------------------------------------------------------------
+STEP 1: START THE BACKEND SERVER
+------------------------------------------------------------------------
+
+1. Open your terminal / command prompt.
+2. Navigate to the backend directory:
+   cd backend
+
+3. Install backend dependencies (if not already installed):
+   npm install
+
+4. Setup database schema:
+   Option A (Recommended for local setup - direct schema sync):
+     npx prisma db push
+
+   Option B (Using Prisma migrations):
+     npm run prisma:migrate
+     (If prompted: "Do you want to continue? All data will be lost. (y/N)", type 'y' and press Enter)
+
+5. Start the backend development server:
+   npm run dev
+
+-> Backend will start running on: http://localhost:5000
+-> Health Check Endpoint: http://localhost:5000/api/health
+
+------------------------------------------------------------------------
+STEP 2: START THE FRONTEND SERVER
+------------------------------------------------------------------------
+
+1. Open a SECOND terminal / command prompt window.
+2. Navigate to the root project directory:
+   cd TS
+
+3. Install frontend dependencies (if not already installed):
+   npm install
+
+4. Start the frontend development server:
+   npm run dev
+
+-> Frontend will start running on: http://localhost:3000 (or http://localhost:5173)
+
+------------------------------------------------------------------------
+STEP 3: ACCESS & VERIFY THE APPLICATION
+------------------------------------------------------------------------
+
+1. Open your Web Browser and visit:
+   http://localhost:3000 (or the URL shown in the frontend terminal)
+
+2. Verify Backend Connectivity by visiting:
+   http://localhost:5000/api/health
+
+------------------------------------------------------------------------
+BUILDING FOR PRODUCTION (OPTIONAL)
+------------------------------------------------------------------------
+
+Frontend Production Build:
+  - In root directory: npm run build
+  - Output files will be generated in the `dist` folder.
+
+Backend Production Build:
+  - In backend directory: npm run build
+  - Start built server: npm start
