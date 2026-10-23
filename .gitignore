@@ -6,7 +6,7 @@
 # Dependencies
 node_modules/
 
-# Build files
+# Build output
 dist/
 build/
 target/
@@ -15,8 +15,11 @@ target/
 .vscode/
 .idea/
 
-# Logs and temporary files
+# Logs
 *.log
+npm-debug.log*
+
+# Temporary files
 *.tmp
 
 # OS files
